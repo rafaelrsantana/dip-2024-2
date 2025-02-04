@@ -18,6 +18,8 @@ def generate_image(seed, width, height, mean, std):
     """
     np.random.seed(seed)
     image = np.random.normal(mean, std, (height, width))
+    image = np.clip(image, 0, 255)
+    image = image.astype(np.uint8) 
     return image
 
 def main():
