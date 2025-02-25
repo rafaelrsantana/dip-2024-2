@@ -1,6 +1,7 @@
 import argparse
 import numpy as np
 import cv2 as cv
+import urllib.request
 
 def load_image_from_url(url, **kwargs):
     """
@@ -12,12 +13,14 @@ def load_image_from_url(url, **kwargs):
     
     Returns:
     - image: Loaded image as a NumPy array.
-    """
-    
+    """    
     ### START CODE HERE ###
-    ### TODO
+    with urllib.request.urlopen(url) as response:
+        data = response.read()
+    img_array = np.asarray(bytearray(data), dtype=np.uint8)
+    flags = kwargs.get("flags", cv.IMREAD_COLOR)
+    image = cv.imdecode(img_array, flags)
     ### END CODE HERE ###
-    
+
     return image
 
-load_image_from_url()
